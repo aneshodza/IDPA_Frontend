@@ -1,0 +1,22 @@
+
+.menu{
+    height: 100vh;
+}
+
+header{
+    padding-top: 10px;
+    display: flex;
+    justify-content: end;
+}
+
+main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.enterButton{
+    height: 100% !important;
+    width: 100%;
+}
