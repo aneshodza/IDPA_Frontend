@@ -1,0 +1,25 @@
+#root::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background-image: url("../images/kbwLogo.svg");
+  background-position: bottom left;
+  background-size: 20vw;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+}
+
+@media screen and (max-width: 900px) {
+  #root {
+    background-size: 60vw;
+  }
+}
+
+@media screen and (min-widht: 2000px) {
+  #root {
+    background-size: 10vw;
+  }
+}

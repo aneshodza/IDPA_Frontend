@@ -4,6 +4,9 @@ import { Route, Routes } from 'react-router-dom';
 import WelcomePage from './components/welcomePage';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import TeacherLogin from './components/teacherLogin';
+import RequireAuth from './components/requireAuth';
+import  Dashboard  from "./components/dashboard"
 
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
       danger: {
         main: "#fd4239",
         contrastText: '#fafafa',
+      },
+      warning:{
+        main: "#f4f4f4",
       }
     }
   })
@@ -38,6 +44,8 @@ function App() {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route path='/' element={<WelcomePage />}></Route>
+            <Route path='/teacherLogin' element={<TeacherLogin />}></Route>
+            <Route path='/teacher/dashboard' element={<RequireAuth><Dashboard/></RequireAuth>}></Route>
           </Routes>
         </ThemeProvider>
       </AuthProvider>

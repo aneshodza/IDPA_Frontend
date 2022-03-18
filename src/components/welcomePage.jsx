@@ -1,24 +1,30 @@
 import { Button, Container, Grid, Input, TextField } from "@mui/material";
-import "../styles/welcomePage.css"
+import { useNavigate } from "react-router-dom";
+import "../styles/loginStyle.css"
+import "../styles/background.css"
 
 
 export default function WelcomePage() {
+    let navigate = useNavigate()
+    
     return (
         <>
-            <Container maxWidth="lg">
+            <Container maxWidth={"none"}>
                 <header>
-                    <Button variant="outlined" >Teacher Login</Button>
+                    <Button variant="outlined" onClick={() => navigate("/teacherLogin")}>Teacher Login</Button>
                 </header>
             </Container>
             <main>
-                <Grid container spacing={1}>
-                    <Grid item xs={12} lg={8}>
-                        <TextField className="input" label="Entry Code eingeben" variant="outlined" />
+            <Container maxWidth="xs">
+                <Grid container spacing={2}>
+                    <Grid item xs={12} lg={12}>
+                        <TextField className="input" label="Enter Code" variant="outlined" />
                     </Grid>
-                    <Grid item xs={12} lg={4}>
-                        <Button className="enterButton" variant="contained" size="Large">Enter</Button>
+                    <Grid item xs={12} lg={12}>
+                        <Button className="enterButton" variant="contained" size="Large" >Enter</Button>
                     </Grid>
                 </Grid>
+            </Container>
             </main>
         </>
     )

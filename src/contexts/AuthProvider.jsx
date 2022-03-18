@@ -5,7 +5,7 @@ import { auth } from "../base/firebase";
 const AuthContext = createContext()
 
 
-export function useAuth({ children }) {
+export function useAuth() {
     return useContext(AuthContext)
 }
 
@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
     function signout() {
         return signOut(auth)
     }
+    
 
     const value = {
         signin,

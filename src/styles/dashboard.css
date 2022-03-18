@@ -1,0 +1,12 @@
+.colorContainer {
+  margin-top: 10px;
+  background-color: #cbedfa;
+  border-radius: 8px;
+}
+
+.gameContainer {
+  height: 100px;
+  width: 100px;
+  background-color: #9d00ec;
+  color: #f4f4f4;
+}
