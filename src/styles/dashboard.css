@@ -1,39 +1,12 @@
 .colorContainer {
   margin-top: 10px;
-  background-color: #cbfad9;
+  background-color: #cbedfa;
   border-radius: 8px;
-  padding: 20px;
 }
 
 .gameContainer {
   height: 100px;
-  width: 100%;
-  background-color: #6c1697;
+  width: 100px;
+  background-color: #9d00ec;
   color: #f4f4f4;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.gameContainer h3 {
-  margin: 0;
-  padding-top: 10px;
-  padding-left: 10px;
-}
-
-.gameContainer div{
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 10px;
-  padding-right: 10px;
-}
-
-.iconButton{
-  padding: 5px !important;
-  width: 40px !important;
-  min-width: 0px !important;
-  aspect-ratio: 1/1;
-  border-radius: 50% !important;
-  margin-left: 5px !important;
 }
