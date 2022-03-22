@@ -6,7 +6,8 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import TeacherLogin from './components/teacherLogin';
 import RequireAuth from './components/requireAuth';
-import  Dashboard  from "./components/dashboard"
+import Dashboard from "./components/dashboard"
+import CreateGame from './components/createGame';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         contrastText: '#fafafa',
       },
       success: {
-        main: '##00f9ba',
+        main: '#222',
       },
       info: {
         main: "#5685fd",
@@ -33,7 +34,7 @@ function App() {
         main: "#fd4239",
         contrastText: '#fafafa',
       },
-      warning:{
+      warning: {
         main: "#f4f4f4",
       }
     }
@@ -45,7 +46,8 @@ function App() {
           <Routes>
             <Route path='/' element={<WelcomePage />}></Route>
             <Route path='/teacherLogin' element={<TeacherLogin />}></Route>
-            <Route path='/teacher/dashboard' element={<RequireAuth><Dashboard/></RequireAuth>}></Route>
+            <Route path='/teacher/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>}></Route>
+            <Route path='/teacher/createGame' element={<RequireAuth><CreateGame /></RequireAuth>}></Route>
           </Routes>
         </ThemeProvider>
       </AuthProvider>
