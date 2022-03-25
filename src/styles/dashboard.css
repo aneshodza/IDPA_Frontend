@@ -6,9 +6,9 @@
 }
 
 .gameContainer {
-  height: 100px;
+  height: 100px !important;
   width: 100%;
-  background-color: #9d00ec;
+
   color: #f4f4f4;
   display: flex;
   flex-direction: column;

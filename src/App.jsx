@@ -24,7 +24,7 @@ function App() {
         contrastText: '#fafafa',
       },
       success: {
-        main: '#222',
+        main: '#28a10e',
       },
       info: {
         main: "#5685fd",

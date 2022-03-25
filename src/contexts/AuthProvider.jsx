@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
     function signout() {
         return signOut(auth)
     }
-    
+
 
     const value = {
         signin,
