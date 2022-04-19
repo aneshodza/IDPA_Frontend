@@ -6,7 +6,7 @@ import Game from "./game";
 import { useAuth } from "../contexts/AuthProvider"
 import { useNavigate } from "react-router-dom"
 import { useLocation } from "react-router-dom"
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../base/firebase"
 
 export default function Dashboard(props) {
@@ -23,6 +23,7 @@ export default function Dashboard(props) {
         let tmpGames = []
         querySnapshot.forEach(doc => tmpGames.push(doc.data()))
         setGames(tmpGames)
+        console.log(tmpGames)
         setLoading(false)
     }
 
@@ -53,7 +54,7 @@ export default function Dashboard(props) {
                         :
                         games.map(game =>
                             <Grid item xs={12} sm={6} lg={4}>
-                                <Game title={game.title} uid={game.uid} />
+                                <Game title={game.title}/>
                             </Grid>)
                     }
                 </Grid>
