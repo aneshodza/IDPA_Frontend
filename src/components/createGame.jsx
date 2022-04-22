@@ -38,11 +38,6 @@ export default function CreateGame(props) {
         }
     }, [])
 
-    function fillInValuesIfExist() {
-
-    }
-
-
     async function createCourse() {
         if (title === "") {
             setAlert("title")
@@ -94,21 +89,6 @@ export default function CreateGame(props) {
         }
     }
 
-    const changeQuestion = (what, value, index) => {
-        console.log(what, value, index)
-        let temp = questions
-        if (what === 'q') {
-            temp[index].q = value
-        } else {
-            temp[index].a = value
-        }
-        console.log(temp)
-        setQuestions(temp)
-    }
-
-    useState(() => {
-        fillInValuesIfExist()
-    }, [])
     return (
         <>
             <Container maxWidth={"none"}>
