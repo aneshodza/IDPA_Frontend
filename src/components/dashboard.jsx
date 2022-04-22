@@ -54,7 +54,7 @@ export default function Dashboard(props) {
                         :
                         games.map(game =>
                             <Grid item xs={12} sm={6} lg={4}>
-                                <Game title={game.title}/>
+                                <Game title={game.title} uid={game.uid}/>
                             </Grid>)
                     }
                 </Grid>

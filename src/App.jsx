@@ -8,7 +8,6 @@ import TeacherLogin from './components/teacherLogin';
 import RequireAuth from './components/requireAuth';
 import Dashboard from "./components/dashboard"
 import CreateGame from './components/createGame';
-import Edit from './components/edit';
 
 
 function App() {
@@ -48,8 +47,8 @@ function App() {
             <Route path='/' element={<WelcomePage />}></Route>
             <Route path='/teacherLogin' element={<TeacherLogin />}></Route>
             <Route path='/teacher/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>}></Route>
-            <Route path='/teacher/createGame' element={<RequireAuth><CreateGame /></RequireAuth>}></Route>
-            <Route path='/edit/:id' element={<RequireAuth><Edit /></RequireAuth>}></Route>
+            <Route path='/teacher/createGame' element={<RequireAuth><CreateGame create={true} /></RequireAuth>}></Route>
+            <Route path='/teacher/edit/:id' element={<RequireAuth><CreateGame create={false} /></RequireAuth>}></Route>
           </Routes>
         </ThemeProvider>
       </AuthProvider>
