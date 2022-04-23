@@ -22,15 +22,17 @@ export default function TeacherLogin() {
                 console.log(error.message)
                 if (error.message === "Firebase: Error (auth/invalid-email).") {
                     setError("Invalid Email")
+                    setLoading(false)
                 } else if (error.message === "Firebase: Error (auth/user-not-found).") {
                     setError("No user with this Email was Found")
+                    setLoading(false)
                 } else if (error.message === "Firebase: Error (auth/wrong-password).") {
                     setError("Wrong Password")
+                    setLoading(false)
                 } else {
                     setError(error.message)
+                    setLoading(false)
                 }
-            } finally {
-                setLoading(false)
             }
         }
     }

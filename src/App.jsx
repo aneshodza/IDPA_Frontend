@@ -10,6 +10,7 @@ import Dashboard from "./components/dashboard"
 import CreateGame from './components/createGame';
 import GameRoom from './components/gameRoom';
 import NotFound from './components/404';
+import GameLobby from './components/gameLobby';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Route path='/teacher/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>}></Route>
             <Route path='/teacher/createGame' element={<RequireAuth><CreateGame create={true} /></RequireAuth>}></Route>
             <Route path='/teacher/edit/:id' element={<RequireAuth><CreateGame create={false} /></RequireAuth>}></Route>
+            <Route path='/teacher/gameLobby/:key' element={<RequireAuth><GameLobby /></RequireAuth>} />
             <Route path='/room/:id' element={<GameRoom />}></Route>
             <Route path='*' element={<NotFound />}></Route>
           </Routes>

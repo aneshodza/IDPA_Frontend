@@ -72,7 +72,8 @@ export default function CreateGame(props) {
             title: title,
             lastModified: new Date().toLocaleDateString("en-ZA", { year: 'numeric', month: '2-digit', day: '2-digit' }),
             uid: docRef,
-            type: type
+            type: type,
+            change: true
         }
         if (type === 1) {
             course['text'] = text
@@ -80,12 +81,12 @@ export default function CreateGame(props) {
             course['questions'] = questions
         }
         await setDoc(doc(db, `teachers/${currentUser.currentUser.uid}/games/${docRef}`), course)
-        
+
         setLoading(false)
         if (props.create) {
-            navigate("/teacher/dashboard", { state: { type: "success", message: title + " was successfully created!"} })
+            navigate("/teacher/dashboard", { state: { type: "success", message: title + " was successfully created!" } })
         } else {
-            navigate("/teacher/dashboard", { state: { type: "success", message: title + " was successfully edited!"} })
+            navigate("/teacher/dashboard", { state: { type: "success", message: title + " was successfully edited!" } })
         }
     }
 
