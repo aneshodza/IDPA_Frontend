@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>605</x>
+      <y>320</y>
+      <w>105</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Teacher View</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>990</x>
+      <y>270</y>
+      <w>100</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Active Game (Teacher)
+--
+Contains Game Management
+Information
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>990</x>
+      <y>360</y>
+      <w>100</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Player List
+--
+Contains Scores for every 
+Player
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>990</x>
+      <y>475</y>
+      <w>115</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Players
+--
+Only Temporary Players
+(Deleted after Crossword finished)
+Contains all of the Info for the
+Crossword
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>605</x>
+      <y>405</y>
+      <w>105</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Player View</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>705</x>
+      <y>380</y>
+      <w>295</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Subscribed</panel_attributes>
+    <additional_attributes>570.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>705</x>
+      <y>410</y>
+      <w>295</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Subscribed</panel_attributes>
+    <additional_attributes>570.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>705</x>
+      <y>320</y>
+      <w>295</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Subscribed</panel_attributes>
+    <additional_attributes>570.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>705</x>
+      <y>290</y>
+      <w>295</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Subscribed</panel_attributes>
+    <additional_attributes>570.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1085</x>
+      <y>295</y>
+      <w>140</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+Orders Descend
+(If Changes to Active Game)
+Then gets changed in others</panel_attributes>
+    <additional_attributes>10.0;190.0;80.0;190.0;80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1100</x>
+      <y>385</y>
+      <w>35</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;230.0;50.0;230.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1070</x>
+      <y>425</y>
+      <w>145</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+Orders Ascend after Backend Verification</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>405</y>
+      <w>115</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>Changes Every Time Scores Change
+We want as little as possible Data
+bg=red
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>315</y>
+      <w>115</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>little Changes only in Management
+Changes have big Impact
+bg=green
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>990</x>
+      <y>520</y>
+      <w>115</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>Changes Often
+Changes have to Validated
+bg=red
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>615</x>
+      <y>620</y>
+      <w>75</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Active Game Room</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>555</x>
+      <y>770</y>
+      <w>60</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Players Join</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>655</x>
+      <y>805</y>
+      <w>80</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Players Are Kicked out</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>580</x>
+      <y>735</y>
+      <w>60</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;70.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>695</x>
+      <y>735</y>
+      <w>15</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>605</x>
+      <y>685</y>
+      <w>105</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Active Game (Teacher)
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>655</x>
+      <y>630</y>
+      <w>40</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=-
+Creates</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>880</x>
+      <y>620</y>
+      <w>75</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Playable Game</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>685</x>
+      <y>620</y>
+      <w>205</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+Game Start</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>810</x>
+      <y>680</y>
+      <w>105</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Active Game (Teacher)
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>955</x>
+      <y>670</y>
+      <w>40</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>980</x>
+      <y>720</y>
+      <w>40</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>930</x>
+      <y>715</y>
+      <w>40</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>630</y>
+      <w>55</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-
+Creates</panel_attributes>
+    <additional_attributes>10.0;100.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>630</y>
+      <w>45</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+Creates</panel_attributes>
+    <additional_attributes>70.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>920</x>
+      <y>660</y>
+      <w>115</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1085</x>
+      <y>615</y>
+      <w>75</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Endview</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>615</y>
+      <w>145</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Game Finished</panel_attributes>
+    <additional_attributes>270.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>975</x>
+      <y>620</y>
+      <w>105</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Deletes</panel_attributes>
+    <additional_attributes>10.0;310.0;10.0;440.0;190.0;440.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1155</x>
+      <y>615</y>
+      <w>130</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Teacher Closes Game</panel_attributes>
+    <additional_attributes>240.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>830</x>
+      <y>620</y>
+      <w>440</w>
+      <h>245</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Deletes</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;470.0;860.0;470.0;860.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>735</y>
+      <w>195</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;240.0;370.0;240.0</additional_attributes>
+  </element>
+</diagram>

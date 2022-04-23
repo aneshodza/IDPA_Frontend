@@ -15,7 +15,6 @@ export default function CreateGame(props) {
     const [type, setType] = useState(1)
     const [questions, setQuestions] = useState([{ q: '', a: '' }])
 
-    console.log(props)
 
     //General Vars
     const currentUser = useAuth()
