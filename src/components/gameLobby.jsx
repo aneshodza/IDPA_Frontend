@@ -38,7 +38,7 @@ export default function GameLobby() {
 
             await setDoc(doc(db, `activeGame`, `${location.state.gameKey}`), data)
             await setDoc(doc(db, `activeGame/${location.state.gameKey}/players`, "invis"), {
-                desc: "this only exists so the Collection is subscribable",
+                crosswordData: crosswordData.crossword.map(idx => {return idx = {pos: idx.pos, word: {length: idx.word.length, word: " ".repeat(idx.word.length)}}}),
                 invis: true
             })
             //Subscription to Players

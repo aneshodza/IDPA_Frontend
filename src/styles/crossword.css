@@ -1,0 +1,220 @@
+div#root {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.crossword-main {
+    aspect-ratio: 1/1;
+}
+
+.crossword-guesses {
+    width: 90%;
+    background-color: #eaeaea;
+    overflow-y: scroll;
+}
+
+.crossword-guesses::-webkit-scrollbar {
+    display: none;
+}
+
+.guess-intermediate {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.guess-list-item {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 10px;
+    display: flex;
+}
+
+.guesses-list:last-child {
+    margin-bottom: 10px;
+}
+
+.guess-list-item .mid-part {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #ababab;
+    color: white;
+}
+
+.guess-list-item .mid-part>* {
+    margin-left: 10px;
+}
+
+@media only screen and (min-width: 700px) {
+    .crossword-main-parent {
+        display: grid;
+    }
+
+    .crossword-main {
+        margin-left: 3.1vw;
+    }
+
+    .crossword-guesses {
+        margin-left: 4%;
+    }
+
+    .guess-list-item .mid-part {
+        font-size: calc(0.9vw + 3px);
+        height: 5vw;
+        border-radius: 1vw;
+    }
+}
+
+@media only screen and (min-width: 1301px) {
+    .crossword-main-parent {
+        grid-template-columns: 80.1vh calc(100vw - 80vh);
+    }
+
+    .crossword-main {
+        max-height: 80vh;
+        margin-top: 10vh;
+    }
+
+    .crossword-guesses {
+        height: calc(75vh - 124.5px - 30px);
+        margin-bottom: 30px;
+        margin-top: 11vh;
+    }
+
+    .crossword-cell-bottom-right {
+        font-size: x-large;
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 1300px) {
+    .crossword-main-parent {
+        grid-template-columns: 60% 40%;
+    }
+
+    .crossword-main {
+        margin-top: calc((100vh - 60vw) / 2);
+    }
+
+    .crossword-cell-bottom-right {
+        font-size: large;
+    }
+
+    .crossword-guesses {
+        height: calc(60vw - 174.5px);
+        margin-bottom: 2vh;
+        margin-top: calc((100vh - 60vw) / 2 + 1vw);
+    }
+}
+
+@media only screen and (max-width: 699px) {
+    .crossword-main {
+        margin-top: 2.5vw;
+        margin-left: 1.2vw;
+        margin-right: 2.5vw;
+        width: (100% - 5vw);
+    }
+
+    .crossword-guesses {
+        margin-left: 5%;
+        margin-top: 2.5vw;
+        margin-bottom: 5vw;
+        height: calc(100vh - 95vw - 124.5px - 12.5vw);
+    }
+
+    .guess-list-item .mid-part {
+        font-size: 13px;
+        height: 50px;
+        border-radius: 7px;
+    }
+}
+
+.crossword-cell-parent {
+    aspect-ratio: 1/1;
+    width: calc(100% / 15);
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 25% 75%;
+}
+
+.crossword-cell-bottom-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+}
+
+.crossword-cell-top-left,
+.crossword-cell-top-right,
+.crossword-cell-bottom-left {
+    background-color: white;
+}
+
+.left .crossword-cell-bottom-left,
+.top .crossword-cell-top-right,
+.used .crossword-cell-bottom-right {
+    background-color: #b4b4b4 !important;
+}
+
+.used .crossword-cell-bottom-right {
+    border-radius: 0%;
+}
+
+.top,
+.used,
+.left {
+    background-color: white !important;
+}
+
+.top.last .crossword-cell-bottom-right {
+    border-radius: 0% 0% 22% 22%;
+}
+
+.left.last .crossword-cell-bottom-right {
+    border-radius: 0% 22% 22% 0%;
+}
+
+.borderless-top.first .crossword-cell-bottom-right {
+    border-radius: 22% 22% 0% 0%;
+}
+
+.borderless-left.first .crossword-cell-bottom-right {
+    border-radius: 22% 0% 0% 22%;
+}
+
+.crossword-cell-bottom-right {
+    border-radius: 22%;
+    background-color: #cdcdcd;
+}
+
+.left.last.top.last.corner .crossword-cell-bottom-right {
+    border-radius: 0% 0% 22% 0% !important;
+}
+
+.first.corner .crossword-cell-bottom-right {
+    border-radius: 22% 0% 0% 0% !important;
+}
+
+.borderless-left.top.last .crossword-cell-bottom-right {
+    border-radius: 0% 0% 0% 22% !important;
+}
+
+.borderless-top.left.last .crossword-cell-bottom-right {
+    border-radius: 0% 22% 0% 0% !important;
+}
+
+.borderless-left.top.first .crossword-cell-bottom-right,
+.borderless-top.left.first .crossword-cell-bottom-right,
+.left.top.last .crossword-cell-bottom-right {
+    border-radius: 0%;
+}
+
+.crossword-row {
+    display: flex;
+}
+
+.guesses-list {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-x: hidden;
+}

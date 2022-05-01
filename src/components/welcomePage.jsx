@@ -4,7 +4,7 @@ import "../styles/loginStyle.css"
 //import "../styles/background.css"
 import { db } from "../base/firebase";
 import { useState } from "react";
-import { setDoc, doc, addDoc, collection, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 
 export default function WelcomePage() {
@@ -24,14 +24,9 @@ export default function WelcomePage() {
             setLoading(false)
             return
         }
-        const docRef = await addDoc(collection(db, `activeGame/${gameKey}/players`), {
-            name: "TEST",
-            score: 0,
-        })
-        console.log("Created player data")
-        console.log("docRef ID: " + docRef.id)
         setError(false)
         setLoading(false)
+        navigate(`/play/${gameKey}`, {state: {lobby: gameKey}})
     }
 
     return (
