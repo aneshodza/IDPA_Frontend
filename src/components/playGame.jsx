@@ -10,7 +10,6 @@ import GuessRender from "./guessRender";
 
 export default function PlayGame(props) {
     const [nick, setNick] = useState("")
-    const [score, setScore] = useState(0)
     const [inLobby, setInLobby] = useState(false)
     const [crosswordData, setCrosswordData] = useState([])
     const [currentGuess, setCurrentGuess] = useState("")
@@ -32,7 +31,6 @@ export default function PlayGame(props) {
     const joinGame = async () => {
         const docRef = await addDoc(collection(db, `activeGame/${location.pathname.split('/')[location.pathname.split('/').length - 1]}/players`), {
             name: nick,
-            score: 0,
             pastGuesses: [],
             guessed: [],
             done: false
@@ -48,7 +46,6 @@ export default function PlayGame(props) {
     const sendGuess = async () => {
         await setDoc(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`), {
             name: nick,
-            score: score,
             pastGuesses: [...pastGuesses, currentGuess],
             guessed: guessed
         })
