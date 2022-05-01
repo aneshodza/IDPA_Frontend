@@ -25,13 +25,9 @@ export default function PlayGame(props) {
                 lobby: location.pathname.split('/')[location.pathname.split('/').length - 1]
             }
         }
-        return function deletePlayer() {
-            console.log(location.state.lobby)
-            console.log(location.state.userRef)
-            console.log(deleteDoc(`activeGame/${location.state.lobby}/players/${location.state.userRef}`))
-        }
     }, [])
 
+    useEffect( () => () => deleteDoc(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`)), [] );
 
     const joinGame = async () => {
         const docRef = await addDoc(collection(db, `activeGame/${location.pathname.split('/')[location.pathname.split('/').length - 1]}/players`), {
