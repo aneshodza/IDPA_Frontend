@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { collection, addDoc, deleteDoc, getDoc, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../base/firebase";
 import { Button, Container, Grid, TextField, Box, CircularProgress } from "@mui/material";
@@ -19,6 +20,7 @@ export default function PlayGame() {
     console.log(guessed)
 
     let location = useLocation()
+    let navigate = useNavigate()
     let unsubscribe = [];
 
     useEffect(async () => {
@@ -43,12 +45,19 @@ export default function PlayGame() {
         }
         unsubscribe[0] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`), (playerSnapshot) => {
             let playerData = playerSnapshot.data()
-            setPastGuesses(playerData.pastGuesses)
-            setGuessed(playerData.guessed)
+            console.log(playerData)
+            if (playerData === undefined) {
+                console.log("test")
+                navigate("/")
+            } else {
+                setPastGuesses(playerData.pastGuesses)
+                setGuessed(playerData.guessed)
+            }
         })
         unsubscribe[1] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/invis`), (playerSnapshot) => {
             let data = playerSnapshot.data()
             setHasStarted(data.gameStarted)
+            console.log(data)
         })
         setCrosswordData(await (await getDoc(doc(db, `activeGame/${location.state.lobby}/players/invis`))).data().crosswordData)
         setInLobby(true)
