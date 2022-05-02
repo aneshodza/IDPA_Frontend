@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress, Box } from "@mui/material"
+import { Backdrop, CircularProgress, Box, Grid, Button } from "@mui/material"
 import { setDoc, doc, getDoc, addDoc, collection, onSnapshot, query } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -10,9 +10,18 @@ export default function GameLobby() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const [players, setPlayers] = useState()
+    const [gameKey, setGameKey] = useState("00000")
     const currentUser = useAuth()
     let crosswordData;
     let unsubscribe;
+
+    function startgame() {
+        setDoc(doc(db, `activeGame/${location.state.gameKey}/players`, "invis"), {
+            gameStarted: true
+        }, { merge: true })
+        console.log(unsubscribe)
+        navigate("/teacher/game/" + location.state.gameKey, { state: { gameKey: location.state.gameKey } })
+    }
 
     async function createGame() {
         if (!location.state || !location.state.crosswordUID || !location.state.gameKey) {
@@ -38,10 +47,11 @@ export default function GameLobby() {
 
             await setDoc(doc(db, `activeGame`, `${location.state.gameKey}`), data)
             await setDoc(doc(db, `activeGame/${location.state.gameKey}/players`, "invis"), {
-                crosswordData: crosswordData.crossword.map(idx => {return idx = {pos: idx.pos, word: {length: idx.word.length, word: " ".repeat(idx.word.length)}}}),
+                crosswordData: crosswordData.crossword.map(idx => { return idx = { pos: idx.pos, word: { length: idx.word.length, word: " ".repeat(idx.word.length) } } }),
                 invis: true,
                 gameStarted: false
             })
+            setGameKey(location.state.gameKey)
             //Subscription to Players
             unsubscribe = onSnapshot(collection(db, `activeGame/${location.state.gameKey}/players`), (playersSnapshot) => {
                 let tmpPlayers = []
@@ -61,8 +71,22 @@ export default function GameLobby() {
     }, [])
     return (
         <>
-            Game Lobby
-            {!loading && <p>{JSON.stringify(players)} </p>}
+            {!loading &&
+                <div className="gameLobby">
+                    <h1>GAME KEY: {gameKey}</h1>
+                    <p style={{ marginTop: "20px" }}>Players</p>
+                    <Grid container spacing={2} justifyContent="center" style={{ minHeight: "40vh" }}>
+                        {players && players.map(player =>
+                            <Grid item xs={"auto"} >
+                                <div className="playerName" style={{ backgroundColor: ['#9d00ec', "#5685fd", "#fd4239"][player.name.length % 3] }}>
+                                    <p>{player.name}</p>
+                                </div>
+                            </Grid>
+                        )}
+                    </Grid>
+                    <Button variant="contained" className="startButton" onClick={startgame}>Start</Button>
+                </div>
+            }
             <Backdrop
                 sx={{ color: '#fff', zIndex: 100 }}
                 open={loading}
