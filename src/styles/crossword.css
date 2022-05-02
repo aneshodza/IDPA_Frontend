@@ -52,7 +52,6 @@ div#root {
     transform: translate(-50%, -50%);
     animation-duration: 4s;
     animation-iteration-count: infinite;
-    height: ;
 }
 
 @keyframes loading-clone-one {
