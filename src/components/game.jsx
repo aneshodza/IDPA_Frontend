@@ -13,13 +13,18 @@ export default function Game(props) {
     useEffect(() => {
         setColor(['#9d00ec', "#5685fd", "#fd4239"][Math.floor(Math.random() * 3)])
     })
-    
+
+    function gameLobby() {
+        const gameKey = Date.now() % 1000000 //Get 6 Digits unique Key for Game
+        navigate("/teacher/gameLobby/" + gameKey, { state: { crosswordUID: props.uid, gameKey: gameKey } })
+    }
+
     return (
         <div className="gameContainer" style={{ backgroundColor: color }}>
             <h3>{props.title}</h3>
             <div>
                 <Button className="iconButton" variant="contained" color="info" onClick={() => navigate(`/teacher/edit/${props.uid}`)}><Edit /></Button>
-                <Button className="iconButton" variant="contained"><PlayArrow /></Button>
+                <Button className="iconButton" variant="contained" onClick={gameLobby}><PlayArrow /></Button>
             </div>
         </div>
     )
