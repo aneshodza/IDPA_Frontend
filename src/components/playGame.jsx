@@ -17,7 +17,6 @@ export default function PlayGame() {
     const [pastGuesses, setPastGuesses] = useState([])
     const [guessed, setGuessed] = useState([])
     const [hasStarted, setHasStarted] = useState(false)
-    console.log(guessed)
 
     let location = useLocation()
     let navigate = useNavigate()
@@ -46,17 +45,16 @@ export default function PlayGame() {
         unsubscribe[1] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/invis`), (playerSnapshot) => {
             let data = playerSnapshot.data()
             if (data === undefined) {
-                console.log("test")
                 navigate("/")
             } else {
                 setHasStarted(data.gameStarted)
             }
-            console.log(data)
         })
         unsubscribe[0] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`), (playerSnapshot) => {
             let playerData = playerSnapshot.data()
-            console.log(playerData)
-            if (playerData !== undefined) {
+            if (playerData === undefined) {
+                navigate("/")
+            } else {
                 setPastGuesses(playerData.pastGuesses)
                 setGuessed(playerData.guessed)
             }
