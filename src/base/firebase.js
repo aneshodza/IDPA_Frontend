@@ -21,7 +21,7 @@ const auth = getAuth(app)
 const db = getFirestore(app)
 const functions = getFunctions(app)
 
-if (window.location.hostname === 'localhost' && false) {
+if (window.location.hostname === 'localhost' && true) {
     connectFirestoreEmulator(db, 'localhost', 8080);
     connectAuthEmulator(auth, 'http://localhost:9099/', { disableWarnings: true });
     connectFunctionsEmulator(functions, "localhost", 5001);

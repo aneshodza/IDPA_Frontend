@@ -45,9 +45,101 @@ div#root {
     margin-left: 10px;
 }
 
+
+.guess-list-item.game-not-started {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading-clone-one {
+    0% {
+        top: 64%;
+        opacity: 0%;
+    }
+    33% {
+        top: 50%;
+        opacity: 100%;
+    }
+    66% {
+        top: 36%;
+        opacity: 0%;
+    }
+    100% {
+        top: 64%;
+        opacity: 0%;
+    }
+}
+
+@keyframes loading-clone-two {
+    0% {
+        top: 50%;
+        opacity: 100%;
+    }
+    33% {
+        top: 36%;
+        opacity: 0%;
+    }
+    66% {
+        top: 64%;
+        opacity: 0%;
+    }
+    100% {
+        top: 50%;
+        opacity: 100%;
+    }
+}
+
+@keyframes loading-clone-three {
+    0% {
+        top: 36%;
+        opacity: 0%;
+    }
+    33% {
+        top: 64%;
+        opacity: 0%;
+    }
+    66% {
+        top: 50%;
+        opacity: 100%;
+    }
+    100% {
+        top: 36%;
+        opacity: 0%;
+    }
+}
+
+.guess-list-item.game-not-started.clone-one {
+    animation-name: loading-clone-one;
+    top: 60%;
+    opacity: 100%;
+}
+
+.guess-list-item.game-not-started.clone-two {
+    animation-name: loading-clone-two;
+    top: 50%;
+    opacity: 100%;
+}
+
+.guess-list-item.game-not-started.clone-three {
+    animation-name: loading-clone-three;
+    top: 40%;
+    opacity: 100%;
+}
+
+.guess-list-item.game-not-started .mid-part {
+    justify-content: center !important;
+}
+
 @media only screen and (min-width: 700px) {
     .crossword-main-parent {
         display: grid;
+    }
+
+    .guess-list-item.game-not-started {
+        width: 40vw;
     }
 
     .crossword-main {

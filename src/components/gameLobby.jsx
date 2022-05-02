@@ -39,7 +39,8 @@ export default function GameLobby() {
             await setDoc(doc(db, `activeGame`, `${location.state.gameKey}`), data)
             await setDoc(doc(db, `activeGame/${location.state.gameKey}/players`, "invis"), {
                 crosswordData: crosswordData.crossword.map(idx => {return idx = {pos: idx.pos, word: {length: idx.word.length, word: " ".repeat(idx.word.length)}}}),
-                invis: true
+                invis: true,
+                gameStarted: false
             })
             //Subscription to Players
             unsubscribe = onSnapshot(collection(db, `activeGame/${location.state.gameKey}/players`), (playersSnapshot) => {
