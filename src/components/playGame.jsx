@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import { collection, addDoc, deleteDoc, getDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, getDoc, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../base/firebase";
 import { Button, Container, Grid, TextField } from "@mui/material";
 import "../styles/loginStyle.css"
@@ -8,15 +8,17 @@ import "../styles/crossword.css"
 import Crossword from "./crosswordRender";
 import GuessRender from "./guessRender";
 
-export default function PlayGame(props) {
+export default function PlayGame() {
     const [nick, setNick] = useState("")
     const [inLobby, setInLobby] = useState(false)
     const [crosswordData, setCrosswordData] = useState([])
     const [currentGuess, setCurrentGuess] = useState("")
     const [pastGuesses, setPastGuesses] = useState([])
     const [guessed, setGuessed] = useState([])
+    console.log(guessed)
 
     let location = useLocation()
+    let unsubscribe;
 
     useEffect(async () => {
         if (location.state === null || location.state === undefined) {
@@ -33,12 +35,16 @@ export default function PlayGame(props) {
             name: nick,
             pastGuesses: [],
             guessed: [],
-            done: false
         })
         location.state = {
             userRef: docRef.id,
             lobby: location.pathname.split('/')[location.pathname.split('/').length - 1]
         }
+        unsubscribe = onSnapshot(doc(db,  `activeGame/${location.state.lobby}/players/${location.state.userRef}`), (playerSnapshot) => {
+            let playerData = playerSnapshot.data()
+            setPastGuesses(playerData.pastGuesses)
+            setGuessed(playerData.guessed)
+        })
         setCrosswordData(await (await getDoc(doc(db, `activeGame/${location.state.lobby}/players/invis`))).data().crosswordData)
         setInLobby(true)
     }
@@ -49,8 +55,6 @@ export default function PlayGame(props) {
             pastGuesses: [...pastGuesses, currentGuess],
             guessed: guessed
         })
-        setPastGuesses([...pastGuesses, currentGuess])
-        setGuessed((await (await getDoc(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`))).data().guessed))
         setCurrentGuess("")
     }
 

@@ -1,4 +1,3 @@
-import { useState, useCallback } from "react"
 import "../styles/crossword.css"
 
 export default function Crossword(props) {
