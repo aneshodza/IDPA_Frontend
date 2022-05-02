@@ -15,7 +15,7 @@ export default function Game(props) {
     })
 
     function gameLobby() {
-        const gameKey = Date.now() % 1000000 //Get 6 Digits unique Key for Game
+        const gameKey = Date.now().toString().slice(7, 13) //Get 6 Digits unique Key for Game
         navigate("/teacher/gameLobby/" + gameKey, { state: { crosswordUID: props.uid, gameKey: gameKey } })
     }
 
