@@ -10,16 +10,16 @@ export default function GuessRender(props) {
             <div className="guesses-list">
                 {guesses.length === 0 ?
                     <div className="guess-list-item">
-                        <div className="mid-part"><h1>No guess yet</h1></div>
+                        <div className="mid-part"><h2>No guess yet</h2></div>
                     </div>
                     :
                     <div className="guess-intermediate">
-                    {
-                        guesses.map(idx =>
-                            <div className="guess-list-item">
-                                <div className="mid-part"><h1>{idx}</h1></div>
-                            </div>)
-                    }
+                        {
+                            guesses.map(idx =>
+                                <div className="guess-list-item">
+                                    <div className="mid-part"><h2>{idx}</h2></div>
+                                </div>)
+                        }
                     </div>
                 }
             </div>
