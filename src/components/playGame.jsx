@@ -43,21 +43,23 @@ export default function PlayGame() {
             userRef: docRef.id,
             lobby: location.pathname.split('/')[location.pathname.split('/').length - 1]
         }
-        unsubscribe[0] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`), (playerSnapshot) => {
-            let playerData = playerSnapshot.data()
-            console.log(playerData)
-            if (playerData === undefined) {
+        unsubscribe[1] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/invis`), (playerSnapshot) => {
+            let data = playerSnapshot.data()
+            if (data === undefined) {
                 console.log("test")
                 navigate("/")
             } else {
+                setHasStarted(data.gameStarted)
+            }
+            console.log(data)
+        })
+        unsubscribe[0] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`), (playerSnapshot) => {
+            let playerData = playerSnapshot.data()
+            console.log(playerData)
+            if (playerData !== undefined) {
                 setPastGuesses(playerData.pastGuesses)
                 setGuessed(playerData.guessed)
             }
-        })
-        unsubscribe[1] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/invis`), (playerSnapshot) => {
-            let data = playerSnapshot.data()
-            setHasStarted(data.gameStarted)
-            console.log(data)
         })
         setCrosswordData(await (await getDoc(doc(db, `activeGame/${location.state.lobby}/players/invis`))).data().crosswordData)
         setInLobby(true)
