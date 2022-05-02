@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { collection, addDoc, deleteDoc, getDoc, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../base/firebase";
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Container, Grid, TextField, Box, CircularProgress } from "@mui/material";
 import "../styles/loginStyle.css"
 import "../styles/crossword.css"
 import Crossword from "./crosswordRender";
@@ -15,10 +15,11 @@ export default function PlayGame() {
     const [currentGuess, setCurrentGuess] = useState("")
     const [pastGuesses, setPastGuesses] = useState([])
     const [guessed, setGuessed] = useState([])
+    const [hasStarted, setHasStarted] = useState(false)
     console.log(guessed)
 
     let location = useLocation()
-    let unsubscribe;
+    let unsubscribe = [];
 
     useEffect(async () => {
         if (location.state === null || location.state === undefined) {
@@ -28,7 +29,7 @@ export default function PlayGame() {
         }
     }, [])
 
-    useEffect( () => () => deleteDoc(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`)), [] );
+    useEffect(() => () => deleteDoc(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`)), []);
 
     const joinGame = async () => {
         const docRef = await addDoc(collection(db, `activeGame/${location.pathname.split('/')[location.pathname.split('/').length - 1]}/players`), {
@@ -40,10 +41,14 @@ export default function PlayGame() {
             userRef: docRef.id,
             lobby: location.pathname.split('/')[location.pathname.split('/').length - 1]
         }
-        unsubscribe = onSnapshot(doc(db,  `activeGame/${location.state.lobby}/players/${location.state.userRef}`), (playerSnapshot) => {
+        unsubscribe[0] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`), (playerSnapshot) => {
             let playerData = playerSnapshot.data()
             setPastGuesses(playerData.pastGuesses)
             setGuessed(playerData.guessed)
+        })
+        unsubscribe[1] = onSnapshot(doc(db, `activeGame/${location.state.lobby}/players/invis`), (playerSnapshot) => {
+            let data = playerSnapshot.data()
+            setHasStarted(data.gameStarted)
         })
         setCrosswordData(await (await getDoc(doc(db, `activeGame/${location.state.lobby}/players/invis`))).data().crosswordData)
         setInLobby(true)
@@ -61,22 +66,35 @@ export default function PlayGame() {
     return (
         <div>
             {inLobby ?
-                <div className="crossword-main-parent">
-                    <Crossword crosswordData={crosswordData} guessed={guessed} />
-                    <div className="crossword-input">
-                        <GuessRender pastGuesses={pastGuesses} />
-                        <Container maxWidth="xs">
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} lg={12}>
-                                    <TextField className="input" label="Your Guess" variant="outlined" value={currentGuess} onChange={e => setCurrentGuess(e.target.value)} />
+                hasStarted ?
+                    <div className="crossword-main-parent">
+                        <Crossword crosswordData={crosswordData} guessed={guessed} />
+                        <div className="crossword-input">
+                            <GuessRender pastGuesses={pastGuesses} />
+                            <Container maxWidth="xs">
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} lg={12}>
+                                        <TextField className="input" label="Your Guess" variant="outlined" value={currentGuess} onChange={e => setCurrentGuess(e.target.value)} />
+                                    </Grid>
+                                    <Grid item xs={12} lg={12}>
+                                        <Button className="enterButton" variant="contained" size="Large" onClick={sendGuess}>Send Guess</Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} lg={12}>
-                                    <Button className="enterButton" variant="contained" size="Large" onClick={sendGuess}>Send Guess</Button>
-                                </Grid>
-                            </Grid>
-                        </Container>
+                            </Container>
+                        </div>
                     </div>
-                </div>
+                    :
+                    <div className="game-not-started-holder">
+                        <div className="guess-list-item game-not-started clone-one">
+                            <div className="mid-part"><h1>The game is about to start</h1></div>
+                        </div>
+                        <div className="guess-list-item game-not-started clone-two">
+                            <div className="mid-part"><h1>The game is about to start</h1></div>
+                        </div>
+                        <div className="guess-list-item game-not-started clone-three">
+                            <div className="mid-part"><h1>The game is about to start</h1></div>
+                        </div>
+                    </div>
                 :
                 <main>
                     <Container maxWidth="xs">
