@@ -15,7 +15,7 @@ export default function TeacherGame() {
     const [loading, setLoading] = useState(true)
     const [backdrop, setBackdrop] = useState(false)
     const [rangliste, setRangliste] = useState([])
-
+    const [questions, setQuestions] = useState([])
 
     async function startup() {
         let temp = (await getDoc(doc(db, `activeGame/${location.state.gameKey}`))).data()
@@ -37,12 +37,18 @@ export default function TeacherGame() {
             setPlayers(tmpPlayers.filter(p => !p.invis))
         })
         setLoading(false)
+        for (let i = 0; i < gameData.questions; i++) {
+            //TODO filter questions
+            let tempQuestions = gameData.questions
+            setQuestions(tempQuestions)
+        }
+        //TODO add Text filter 
         return unsubscribe
     }
 
     function endGame() {
-        clearCollection(`activeGame/${location.state.gameKey}/players`)
         deleteDoc(doc(db, `activeGame/${location.state.gameKey}`))
+        clearCollection(`activeGame/${location.state.gameKey}/players`)
         navigate("/")
     }
 
@@ -76,11 +82,13 @@ export default function TeacherGame() {
                         <div style={{ marginLeft: "10%" }}>
                             <h1>Questions</h1>
                             <ol>
-                                {gameData.questions.map(question =>
+                                {questions.map(question =>
                                     <li style={{ fontSize: "1.2rem", marginBottom: "10px" }}>{question.q}</li>
                                 )}
                             </ol>
                         </div>
+                    }
+                    {//Add Text gamedata.text && ....
                     }
                 </Grid>
                 <Grid xs={6}>
