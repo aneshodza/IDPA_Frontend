@@ -52,11 +52,12 @@ div#root {
     transform: translate(-50%, -50%);
     animation-duration: 4s;
     animation-iteration-count: infinite;
+    height: ;
 }
 
 @keyframes loading-clone-one {
     0% {
-        top: 60%;
+        top: 64%;
         opacity: 0%;
     }
     33% {
@@ -64,11 +65,11 @@ div#root {
         opacity: 100%;
     }
     66% {
-        top: 40%;
+        top: 36%;
         opacity: 0%;
     }
     100% {
-        top: 60%;
+        top: 64%;
         opacity: 0%;
     }
 }
@@ -79,11 +80,11 @@ div#root {
         opacity: 100%;
     }
     33% {
-        top: 40%;
+        top: 36%;
         opacity: 0%;
     }
     66% {
-        top: 60%;
+        top: 64%;
         opacity: 0%;
     }
     100% {
@@ -94,11 +95,11 @@ div#root {
 
 @keyframes loading-clone-three {
     0% {
-        top: 40%;
+        top: 36%;
         opacity: 0%;
     }
     33% {
-        top: 60%;
+        top: 64%;
         opacity: 0%;
     }
     66% {
@@ -106,7 +107,7 @@ div#root {
         opacity: 100%;
     }
     100% {
-        top: 40%;
+        top: 36%;
         opacity: 0%;
     }
 }
