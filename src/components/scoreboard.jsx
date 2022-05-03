@@ -5,7 +5,7 @@ function Scoreboard(props) {
     return (
         <div className="scoreboard">
             <div className="scoreboard__header">
-                <h1>Scoreboard</h1>
+                <h1>SCOREBOARD</h1>
             </div>
             <div className="scoreboard__players">
                 {props.players

@@ -14,16 +14,22 @@ export default function Dashboard(props) {
     const [navigationNotivSnackbar, setNavigationNotivSnackbar] = useState(0)
     const [games, setGames] = useState([])
     const [loading, setLoading] = useState(true)
+    const [isPublic, setIsPublic] = useState(false)
     let currentUser = useAuth()
     let navigate = useNavigate()
     const location = useLocation()
 
-    async function loadGames() {
-        const querySnapshot = await getDocs(collection(db, `teachers/${currentUser.currentUser.uid}/games`))
+    async function loadGames(pullPublic) {
+        setIsPublic(pullPublic)
+        let querySnapshot
+        if (pullPublic) {
+            querySnapshot = await getDocs(collection(db, `teachers/public/games`))
+        } else {
+            querySnapshot = await getDocs(collection(db, `teachers/${currentUser.currentUser.uid}/games`))
+        }
         let tmpGames = []
         querySnapshot.forEach(doc => tmpGames.push(doc.data()))
         setGames(tmpGames)
-        console.log(tmpGames)
         setLoading(false)
     }
 
@@ -31,14 +37,14 @@ export default function Dashboard(props) {
         if (location.state?.type === "success") {
             setNavigationNotivSnackbar(1)
         }
-        loadGames()
+        loadGames(false)
     }, [])
     return (
         <>
             <Container maxWidth="lg">
                 <Tabs value={tab} onChange={(e, newVal) => setTab(newVal)} >
-                    <Tab value="account" label="Account" icon={<Person />} />
-                    <Tab value="public" label="Public" icon={<Public />} disabled />
+                    <Tab value="account" label="Account" icon={<Person />} onClick={() => loadGames(false)}/>
+                    <Tab value="public" label="Public" icon={<Public />} onClick={() => loadGames(true)}/>
                 </Tabs>
             </Container>
             <Container className="colorContainer" maxWidth="lg">
@@ -54,7 +60,7 @@ export default function Dashboard(props) {
                         :
                         games.map(game =>
                             <Grid item xs={12} sm={6} lg={4}>
-                                <Game title={game.title} uid={game.uid}/>
+                                <Game title={game.title} uid={game.uid} isPublic={isPublic}/>
                             </Grid>)
                     }
                 </Grid>

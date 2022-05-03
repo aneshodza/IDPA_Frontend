@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { collection, addDoc, deleteDoc, getDoc, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../base/firebase";
-import { Button, Container, Grid, TextField, Box, CircularProgress } from "@mui/material";
+import { Button, Container, Grid, TextField, Box, CircularProgress, Backdrop } from "@mui/material";
 import "../styles/loginStyle.css"
 import "../styles/crossword.css"
 import Crossword from "./crosswordRender";
@@ -17,6 +17,7 @@ export default function PlayGame() {
     const [pastGuesses, setPastGuesses] = useState([])
     const [guessed, setGuessed] = useState([])
     const [hasStarted, setHasStarted] = useState(false)
+    const [loading, setLoading] = useState({status: false, text: ""})
 
     let location = useLocation()
     let navigate = useNavigate()
@@ -33,6 +34,10 @@ export default function PlayGame() {
     useEffect(() => () => deleteDoc(doc(db, `activeGame/${location.state.lobby}/players/${location.state.userRef}`)), []);
 
     const joinGame = async () => {
+        if (loading.status) {
+            return;
+        }
+        setLoading({status: true, text: "Joining game"})
         const docRef = await addDoc(collection(db, `activeGame/${location.pathname.split('/')[location.pathname.split('/').length - 1]}/players`), {
             name: nick,
             pastGuesses: [],
@@ -61,6 +66,7 @@ export default function PlayGame() {
         })
         setCrosswordData(await (await getDoc(doc(db, `activeGame/${location.state.lobby}/players/invis`))).data().crosswordData)
         setInLobby(true)
+        setLoading({status: false, text: ""})
     }
 
     const sendGuess = async () => {
@@ -118,6 +124,15 @@ export default function PlayGame() {
                     </Container>
                 </main>
             }
+            <Backdrop
+                sx={{ color: '#fff', zIndex: 100 }}
+                open={loading.status}
+                onClick={() => { }}>
+                <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                    <p>{loading.text}</p>
+                    <CircularProgress color="inherit"></CircularProgress>
+                </Box>
+            </Backdrop>
         </div>
 
     )

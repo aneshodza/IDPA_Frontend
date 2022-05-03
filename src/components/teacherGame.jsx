@@ -4,8 +4,7 @@ import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { db } from "../base/firebase"
 import Scoreboard from "./scoreboard"
-
-
+import "../styles/teacherview.css"
 
 export default function TeacherGame() {
     const location = useLocation()
@@ -16,33 +15,54 @@ export default function TeacherGame() {
     const [backdrop, setBackdrop] = useState(false)
     const [rangliste, setRangliste] = useState([])
     const [questions, setQuestions] = useState([])
+    const [cleanText, setCleanText] = useState("Loading...")
 
     async function startup() {
         let temp = (await getDoc(doc(db, `activeGame/${location.state.gameKey}`))).data()
         console.log(temp)
         setGameData(temp)
+        let tempGameData = temp
 
         temp = []
         let a = await getDocs(collection(db, `activeGame/${location.state.gameKey}/players`))
         a.forEach((i) =>
             temp.push(i.data())
         )
-        console.log("Players: ", temp.filter(p => !p.invis))
         setPlayers(temp.filter(p => !p.invis))
 
         let unsubscribe = onSnapshot(collection(db, `activeGame/${location.state.gameKey}/players`), (playersSnapshot) => {
             let tmpPlayers = []
             playersSnapshot.forEach((player) => tmpPlayers.push(player.data()))
-            console.log(tmpPlayers)
             setPlayers(tmpPlayers.filter(p => !p.invis))
         })
         setLoading(false)
-        for (let i = 0; i < gameData.questions; i++) {
-            //TODO filter questions
-            let tempQuestions = gameData.questions
+        if (tempGameData.questions !== undefined) {
+            let tempQuestions = []
+            for (let i = 0; i < tempGameData.questions.length; i++) {
+                tempGameData.crosswordData.forEach(idx => {
+                    if (idx.word.word === tempGameData.questions[i].a) {
+                        tempQuestions.push(tempGameData.questions[i])
+                    }
+                })
+            }
             setQuestions(tempQuestions)
+        } else if (tempGameData.text !== undefined) {
+            let finalString = tempGameData.text
+            let deleteWords = []
+            let splitString = tempGameData.text.split("_")
+            for (let i = 1; i < splitString.length; i += 2) {
+                tempGameData.crosswordData.forEach(idx => {
+                    if (idx.word.word.toLowerCase() === splitString[i].replace(" ", "-").toLowerCase()) {
+                        deleteWords.push(splitString[i])
+                    }
+                })
+            }
+            finalString = finalString.replace(/_/g, "")
+            deleteWords.forEach(idx => {
+                finalString = finalString.replace(idx, "______")
+            })
+            setCleanText(finalString)
         }
-        //TODO add Text filter 
         return unsubscribe
     }
 
@@ -56,11 +76,18 @@ export default function TeacherGame() {
         const unsubscribe = startup()
     }, [])
 
+    const cleanup = () => {
+        console.log(rangliste)
+        deleteDoc(doc(db, `activeGame/${location.state.gameKey}`))
+        setBackdrop(true)
+    }
+
     useEffect(() => {
+        let temp = (players.sort((b, a) => (a.guessed.length > 0 ? a.guessed.length : 0) - (b.guessed.length > 0 ? b.guessed.length : 0)).slice(0, 3))
+        console.log(temp)
+        setRangliste(temp)
         if (players.filter(a => a.guessed.length === gameData.crosswordData.length).length > 0) {
-            setRangliste(players.sort((b, a) => (a.guessed.length > 0 ? a.guessed.length : 0) - (b.guessed.length > 0 ? b.guessed.length : 0)).slice(0, 3))
-            deleteDoc(doc(db, `activeGame/${location.state.gameKey}`))
-            setBackdrop(true)
+            cleanup()
         }
     }, [players])
 
@@ -78,26 +105,34 @@ export default function TeacherGame() {
         <Container maxWidth={"false"}>
             <Grid container>
                 <Grid item xs={6}>
-                    {gameData.questions &&
-                        <div style={{ marginLeft: "10%" }}>
-                            <h1>Questions</h1>
-                            <ol>
-                                {questions.map(question =>
-                                    <li style={{ fontSize: "1.2rem", marginBottom: "10px" }}>{question.q}</li>
-                                )}
-                            </ol>
-                        </div>
-                    }
-                    {//Add Text gamedata.text && ....
-                    }
+                    <div className="teacherview-greybox questions-holder">
+                        {gameData.questions &&
+                            <div>
+                                <h1>QUESTIONS</h1>
+                                <div>
+                                    {questions.map((question, i) =>
+                                        <div className="question-item"><h3>{i + 1}. {question.q}</h3></div>
+                                    )}
+                                </div>
+                            </div>
+                        }
+                        {gameData.text &&
+                            <div>
+                                <h1>GAP TEXT</h1>
+                                <p className="gaptext">{cleanText}</p>
+                            </div>
+                        }
+                    </div>
                 </Grid>
                 <Grid xs={6}>
-                    {players.length > 0 && <Scoreboard players={players.sort((b, a) => (a.guessed.length > 0 ? a.guessed.length : 0) - (b.guessed.length > 0 ? b.guessed.length : 0)).slice(0, 7)} amountQuestions={gameData.crosswordData.length} />}
+                    <div className="teacherview-greybox scoreboard-holder">
+                        {players.length > 0 && <Scoreboard players={players.sort((b, a) => (a.guessed.length > 0 ? a.guessed.length : 0) - (b.guessed.length > 0 ? b.guessed.length : 0)).slice(0, 7)} amountQuestions={gameData.crosswordData.length} />}
+                    </div>
                 </Grid>
             </Grid>
         </Container>
         <Backdrop
-            open={true}
+            open={backdrop}
             sx={{ color: '#fff', zIndex: 100 }}
             onClick={() => { }}
         >
@@ -110,6 +145,7 @@ export default function TeacherGame() {
                 <Button variant="contained" color="danger" onClick={endGame}>End Game</Button>
             </div>
         </Backdrop>
+        <iframe width="0" height="0" src="https://www.youtube.com/embed/TW9d8vYrVFQ?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </>
     )
 }
