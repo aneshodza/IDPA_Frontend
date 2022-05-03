@@ -77,15 +77,14 @@ export default function TeacherGame() {
     }, [])
 
     const cleanup = () => {
-        console.log(rangliste)
+        let temp = (players.sort((b, a) => (a.guessed.length > 0 ? a.guessed.length : 0) - (b.guessed.length > 0 ? b.guessed.length : 0)).slice(0, 3))
+        console.log(temp)
+        setRangliste(temp)
         deleteDoc(doc(db, `activeGame/${location.state.gameKey}`))
         setBackdrop(true)
     }
 
     useEffect(() => {
-        let temp = (players.sort((b, a) => (a.guessed.length > 0 ? a.guessed.length : 0) - (b.guessed.length > 0 ? b.guessed.length : 0)).slice(0, 3))
-        console.log(temp)
-        setRangliste(temp)
         if (players.filter(a => a.guessed.length === gameData.crosswordData.length).length > 0) {
             cleanup()
         }
@@ -139,9 +138,11 @@ export default function TeacherGame() {
             <div style={{ textAlign: "center" }}>
 
                 <h3>Rangliste</h3>
-                {rangliste.map((player) => {
-                    <p>{player.name}</p>
-                })}
+                <ol>
+                {rangliste.map((player) => 
+                    <li>{player.name}</li>
+                )}
+                </ol>
                 <Button variant="contained" color="danger" onClick={endGame}>End Game</Button>
             </div>
         </Backdrop>
