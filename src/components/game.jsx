@@ -15,7 +15,7 @@ export default function Game(props) {
     })
 
     function gameLobby() {
-        const gameKey = Date.now() % 1000000 //Get 6 Digits unique Key for Game
+        const gameKey = Date.now().toString().slice(7, 13) //Get 6 Digits unique Key for Game
         navigate("/teacher/gameLobby/" + gameKey, { state: { crosswordUID: props.uid, gameKey: gameKey } })
     }
 
@@ -23,7 +23,9 @@ export default function Game(props) {
         <div className="gameContainer" style={{ backgroundColor: color }}>
             <h3>{props.title}</h3>
             <div>
-                <Button className="iconButton" variant="contained" color="info" onClick={() => navigate(`/teacher/edit/${props.uid}`)}><Edit /></Button>
+                { props.isPublic ||
+                    <Button className="iconButton" variant="contained" color="info" onClick={() => navigate(`/teacher/edit/${props.uid}`)}><Edit /></Button>
+                }
                 <Button className="iconButton" variant="contained" onClick={gameLobby}><PlayArrow /></Button>
             </div>
         </div>

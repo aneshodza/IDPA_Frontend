@@ -1,0 +1,36 @@
+div.teacherview-greybox {
+    height: 82.5vh;
+    padding: 5vh;
+    padding-top: 2.5vh;
+    margin-top: 5vh;
+    background-color: #eaeaea;
+    border-radius: 50px;
+}
+
+div.teacherview-greybox.scoreboard-holder {
+    margin-left: 1.5vw;
+}
+
+div.teacherview-greybox.questions-holder {
+    margin-right: 1.5vw;
+}
+
+div.scoreboard__players div.bar-contain {
+    margin-bottom: 2vh !important;
+    width: 100% !important;
+}
+
+div.scoreboard__header h1 {
+    font-weight: bold;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+div.teacherview-greybox div h1 {
+    text-align: center;
+}
+
+.gaptext {
+    font-size: 1.2em !important;
+}

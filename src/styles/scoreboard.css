@@ -1,0 +1,16 @@
+.bar-label {
+    font: 15px 'opensans-bold', sans-serif;
+    font-weight: bold;
+    position: relative;
+    top: 10px;
+    left: 15px;
+}
+
+.bar-contain {
+    width: 80%;
+}
+
+.bar-expand {
+    border-radius: 5px 5px 5px 5px;
+    transition: width 0.1s;
+}
