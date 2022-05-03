@@ -1,4 +1,4 @@
-import { Alert, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField, Backdrop, CircularProgress, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
+import { Alert, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField, Backdrop, CircularProgress, InputLabel, Select, MenuItem, FormControl, FormGroup, FormControlLabel, Switch } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { addDoc, collection, doc, setDoc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ export default function CreateGame(props) {
     const [alert, setAlert] = useState("none")
     const [type, setType] = useState(1)
     const [questions, setQuestions] = useState([{ q: '', a: '' }])
+    const [isPublic, setIsPublic] = useState(false)
 
 
     //General Vars
@@ -33,6 +34,7 @@ export default function CreateGame(props) {
                         setQuestions(pulled.questions)
                     }
                     setType(pulled.type)
+                    setIsPublic(pulled.isPublic)
                 })
         }
     }, [])
@@ -72,7 +74,8 @@ export default function CreateGame(props) {
             lastModified: new Date().toLocaleDateString("en-ZA", { year: 'numeric', month: '2-digit', day: '2-digit' }),
             uid: docRef,
             type: type,
-            change: true
+            change: true,
+            isPublic: isPublic
         }
         if (type === 1) {
             course['text'] = text
@@ -80,6 +83,10 @@ export default function CreateGame(props) {
             course['questions'] = questions
         }
         await setDoc(doc(db, `teachers/${currentUser.currentUser.uid}/games/${docRef}`), course)
+
+        if (isPublic) {
+            await setDoc(doc(db, `teachers/public/games`, docRef), course)
+        }
 
         setLoading(false)
         if (props.create) {
@@ -123,7 +130,7 @@ export default function CreateGame(props) {
                             {alert === "text" && <Alert severity="error">You must define a valid text!</Alert>}
                             <Alert severity="info">
                                 Keywords for the crossword should be entered like this: <em>_Keyword_</em><br />
-                                Keywords will be replaced by ocothorps: <em>"text _keyword_ text" --`&gt;` "text #### text"</em> <br />
+                                Keywords will be replaced by underscores: <em>"text _keyword_ text" --`&gt;` "text ______ text"</em> <br />
                                 Spaces can be entered normally and will be replaced by a hyphen: <em>"_Müller Meier_" --`&gt;` "Müller-Meier"</em>
                             </Alert>
                         </Grid>
@@ -160,6 +167,13 @@ export default function CreateGame(props) {
                     </Grid>
                     <Grid item xs={6} md={2}>
                         <Button className="input" variant="contained" onClick={() => createCourse()}>{props.create ? 'Save' : 'Edit'}</Button>
+                    </Grid>
+                    <Grid item xs={6} md={2}>
+                        <FormGroup>
+                            { props.create &&
+                                <FormControlLabel control={<Switch onChange={() => setIsPublic(!isPublic)}/>} label="Public" />
+                            }
+                        </FormGroup>
                     </Grid>
                 </Grid>
             </Container>

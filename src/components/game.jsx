@@ -23,7 +23,9 @@ export default function Game(props) {
         <div className="gameContainer" style={{ backgroundColor: color }}>
             <h3>{props.title}</h3>
             <div>
-                <Button className="iconButton" variant="contained" color="info" onClick={() => navigate(`/teacher/edit/${props.uid}`)}><Edit /></Button>
+                { props.isPublic ||
+                    <Button className="iconButton" variant="contained" color="info" onClick={() => navigate(`/teacher/edit/${props.uid}`)}><Edit /></Button>
+                }
                 <Button className="iconButton" variant="contained" onClick={gameLobby}><PlayArrow /></Button>
             </div>
         </div>

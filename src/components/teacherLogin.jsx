@@ -47,7 +47,7 @@ export default function TeacherLogin() {
                         <TextField className="input" label="Enter Email" variant="outlined" type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} />
                     </Grid>
                     <Grid item xs={12} lg={12}>
-                        <TextField className="input" label="Enter Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <TextField className="input" label="Enter Password" variant="outlined" type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} />
                     </Grid>
                     <Grid item xs={12} lg={12}>
                         <Button className="enterButton" variant="contained" size="Large" onClick={login}>Enter</Button>
